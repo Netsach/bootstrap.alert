@@ -1,0 +1,23 @@
+{
+  "name": "bootstrap-alert",
+  "version": "1.0.0",
+  "description": "Customizable bootstrap alert : Replace old javascript alert('msg');",
+  "main": "Gruntfile.js",
+  "dependencies": {
+  },
+  "devDependencies": {
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-cli": "^0.1.13",
+    "grunt": "^0.4.5"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "jquery",
+    "bootstrap",
+    "alert"
+  ],
+  "author": "NetSach",
+  "license": "GPLv3"
+}

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>alert bootstrap</title>
+	<link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="bower_components/timecircles/inc/TimeCircles.css">
+	<style type="text/css">
+		form{
+			margin-top: 20px;
+		}
+
+		form input{
+			margin-bottom: 15px !important;
+		}
+
+		.xtra .modal-header{
+			height: 15%;
+			background-color: #e4e4e4;
+			display: table;
+			width: 100%;
+			vertical-align: middle;
+			text-align:center;
+			color: #646262;
+
+		}
+
+		.xtra .modal-body{
+		    height: 70%;
+		    background-color: #fff;
+		    width: 100%;
+		    display: table;
+	        text-align:center;
+			padding-left: 20px;
+			padding-right: 20px;
+		}
+
+		.xtra .modal-footer{
+		    vertical-align: middle;
+		    padding: 0;
+		}
+
+		.xtra .modal-footer .btn-default{
+		    vertical-align: middle;
+		    color: #00a650;
+		    border-left: 1px solid #e4e4e4;
+		    width: 50%;
+		    text-transform: lowercase;
+		    float: left;
+		    border-radius: 0;
+		}
+
+		.xtra .modal-footer .btn-primary{
+		    vertical-align: middle;
+		    color: #D0D0D0;
+		    width: 50%;
+		    text-transform: lowercase;
+		    float: left;
+		    border-radius: 0;
+		    margin-left: 0;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<form action="" method="post" id="modal-form">
+			<div class="row">
+				<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Modal title</label>
+					<p style="color:gray;">Property name : title</p>
+					<input type="text" class="form-control" name="title" placeholder="title" value="Title">
+				</div>
+				<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Modal Message</label>
+					<p style="color:gray;">Property name : body</p>
+					<input type="text" class="form-control" name="body" placeholder="message" value="I am your message">
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-md-6 col-lg-6">
+				  	<label>Modal text button confirm</label>
+				  	<p style="color:gray;">Property name : text_confirm</p>
+					<input type="text" class="form-control" name="text_confirm" value="OK">
+				</div>
+				<div class="col-xs-6 col-md-6 col-lg-6">
+				  	<label>Modal text button decline</label>
+				  	<p style="color:gray;">Property name : text_decline</p>
+					<input type="text" class="form-control" name="text_decline" value="No">
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Modal has timer</label>
+					<p style="color:gray;">Property name : is_delayed</p>
+					<div class="row">
+						<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="delayed" type="radio" name="is_delayed" value="true" checked="checked">
+							<label for="delayed">true</label>
+					  	</div>
+					  	<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="not-delayed" type="radio" name="is_delayed" value="false">
+							<label for="not-delayed">false</label>
+					  	</div>
+				  	</div>
+				  	</div>
+				  	<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Modal time if delayed</label>
+				  	<p style="color:gray;">Property name : timer_modal</p>
+					<input type="number" class="form-control" name="timer_modal" value="5">
+			  	</div>
+		  	</div>
+		  	<div class="row">
+			  	<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Close if click outside</label>
+					<p style="color:gray;">Property name : click_outside_for_close</p>
+					<div class="row">
+						<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="close-outside" type="radio" name="click_outside_for_close" value="true" checked="checked">
+							<label for="close-outside">true</label>
+					  	</div>
+					  	<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="not-close-outside" type="radio" name="click_outside_for_close" value="false">
+							<label for="not-close-outside">false</label>
+					  	</div>
+				  	</div>
+			  	</div>
+			  	<div class="col-xs-6 col-md-6 col-lg-6">
+					<label>Extra classe for customise your modal</label>
+					<p style="color:gray;">Property name : extra_class</p>
+					<input type="text" class="form-control" name="extra_class"  value="">
+			  	</div>
+		  	</div>
+		  	<div class="row">
+				<div class="col-xs-6 col-md-6 col-lg-6">
+				  	<label>Close modal after confirm</label>
+				  	<p style="color:gray;">Property name : close_after_calback_confirm</p>
+				  	<div class="row">
+						<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="confirm-close" type="radio" name="close_after_calback_confirm" value="true" checked="checked">
+							<label for="confirm-close">true</label>
+					  	</div>
+					  	<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="not-confirm-close" type="radio" name="close_after_calback_confirm" value="false">
+							<label for="not-confirm-close">false</label>
+					  	</div>
+				  	</div>
+				</div>
+				<div class="col-xs-6 col-md-6 col-lg-6">
+				  	<label>Close modal after decline</label>
+				  	<p style="color:gray;">Property name : close_after_calback_decline</p>
+				  	<div class="row">
+						<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="decline-close" type="radio" name="close_after_calback_decline" value="true" checked="checked">
+							<label for="decline-close">true</label>
+					  	</div>
+					  	<div class="col-xs-6 col-md-6 col-lg-6">
+							<input id="not-decline-close" type="radio" name="close_after_calback_decline" value="false">
+							<label for="not-decline-close">false</label>
+					  	</div>
+				  	</div>
+				</div>
+		  	</div>		  	
+
+
+			<label>Modal type</label>
+			<p style="color:gray;">Property name : type</p>
+			<div class="row">
+				<div class="col-xs-2 col-md-2 col-lg-2">
+					<input id="type-none" type="radio" name="type" value="" checked="checked">
+					<label for="type-none">basic</label>
+			  	</div>
+			  	<div class="col-xs-2 col-md-2 col-lg-2">
+					<input id="type-info" type="radio" name="type" value="info">
+					<label for="type-info">info</label>
+			  	</div>
+				<div class="col-xs-2 col-md-2 col-lg-2">
+					<input id="type-success" type="radio" name="type" value="success">
+					<label for="type-success">success</label>
+			  	</div>
+			  	<div class="col-xs-2 col-md-2 col-lg-2">
+					<input id="type-warning" type="radio" name="type" value="warning">
+					<label for="type-warning">warning</label>
+			  	</div>
+			  	<div class="col-xs-2 col-md-2 col-lg-2">
+					<input id="type-danger" type="radio" name="type" value="danger">
+					<label for="type-danger">danger</label>
+			  	</div>
+		  	</div>
+
+			<input type="submit" class="form-control" value="Display">
+		</form>
+	</div>
+	<script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+	<script type="text/javascript" src="bower_components/timecircles/inc/TimeCircles.js"></script>
+	<script type="text/javascript" src="bower_components/underscore/underscore.js"></script>
+	<script type="text/javascript" src="bootstrap.alert.js"></script>
+	<script type="text/javascript">
+
+		$.fn.serializeObject = function()
+		{
+		    var o = {};
+		    var a = this.serializeArray();
+		    $.each(a, function() {
+		        if (o[this.name] !== undefined) {
+		            if (!o[this.name].push) {
+		                o[this.name] = [o[this.name]];
+		            }
+		            if(this.value ==='true' || this.value === 'false')
+		            	this.value = JSON.parse(this.value);
+		            o[this.name].push(this.value || '');
+		        } else {
+		            if(this.value === 'true' || this.value === 'false')
+		            	this.value = JSON.parse(this.value);
+		            o[this.name] = this.value || '';
+		        }
+		    });
+		    return o;
+		};
+
+		$(function() {
+		    $('#modal-form').submit(function(e) {
+		    	e.preventDefault();
+		        //$('#result').html(JSON.stringify($('#modal-form').serializeObject()));
+		        var options = JSON.parse(JSON.stringify($('#modal-form').serializeObject()));
+		        console.log(options);
+		        $.alert(options);
+		    });
+
+		});
+	</script>
+</body>
+</html>
