@@ -16,8 +16,8 @@
           is_delayed: true,
           close_after_calback_confirm: true,
           close_after_calback_decline: true,
-          callback_confirm: function(){},
-          callback_decline: function(){},
+          callback_confirm: function(){console.log('accepted');},
+          callback_decline: function(){console.log('declined');},
           text_confirm: 'ok',
           text_decline: null,
           extra_class: '',
@@ -80,7 +80,15 @@
             backdrop: 'static',
             keyboard: false
         });
+      }else{
+        $('body').on('click', function(e) {
+          self.callback_decline();
+           $('body').off('click');
+        });
+        
       }
+
+
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
@@ -89,6 +97,9 @@
 
 
       $('.bootstrap-alert-modal .confirmed').click(function(){self.callback_confirm();});
+
+      $('.bootstrap-alert-modal .declined').click(function(){self.callback_decline();});
+      $('.bootstrap-alert-modal .close').click(function(){self.callback_decline();});
     },
 
     debug: function(text){
@@ -146,13 +157,12 @@
             '        </div>'+
             '        <div class="modal-footer">'+
             '             <% if(text_decline){ %>'+
-            '                 <button type="button" class="btn btn-default" data-dismiss="modal">'+
+            '                 <button type="button" class="btn btn-default declined" data-dismiss="modal">'+
             '                   <div class="row">'+  
             '                    <% if(!text_confirm){ %><div class="col-xs-4  timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>'+
             '                     <div class="col-xs-<% if(!text_confirm){ %>7<% }else{ %>12 <% } %> inline-label" style="line-height: 48px; <% if(text_confirm){ %>min-width: 50px; height: 48px; <% } %>"><%= text_decline %></div>'+
             '                   </div>'+  
             '                 </button>'+
-           // '               <button type="button" class="btn btn-default" data-dismiss="modal" style="height: 80px;width: 80px;"><%= text_decline %><% if(!text_confirm){ %><div class="timecircle-timer" data-timer="<%= timer_modal %>"></div><% } %></button>'+
             '             <% } %>'+
             '             <% if(text_confirm){ %>'+
             '                <% if(is_delayed) { %>'+
