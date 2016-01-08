@@ -4,27 +4,28 @@ Readme
 Install
 -------
 
-``bower install bootstrap-alert``
+.. code-block:: shell
+
+    bower install bootstrap-alert
 
 Include in HTML
 ---------------
 
-::
+.. code-block:: html
 
-     <script type="text/javascript" src="bootstrap.alert.js">
+    <script type="text/javascript" src="bootstrap.alert.js">
 
 Dependancies
 ------------
 
-::
+.. code-block:: html
 
-            
-        <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" >
-        <link rel="stylesheet" type="text/css" href="bower_components/timecircles/inc/TimeCircles.css" >
-        <script type="text/javascript" src="bower_components/jquery/dist/jquery.js" >
-        <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js" >
-        <script type="text/javascript" src="bower_components/timecircles/inc/TimeCircles.js" >
-        <script type="text/javascript" src="bower_components/underscore/underscore.js" >
+    <link rel="stylesheet" type="text/css" href="bower_components/bootstrap/dist/css/bootstrap.css" >
+    <link rel="stylesheet" type="text/css" href="bower_components/timecircles/inc/TimeCircles.css" >
+    <script type="text/javascript" src="bower_components/jquery/dist/jquery.js" >
+    <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js" >
+    <script type="text/javascript" src="bower_components/timecircles/inc/TimeCircles.js" >
+    <script type="text/javascript" src="bower_components/underscore/underscore.js" >
             
         
 
@@ -36,7 +37,7 @@ Quick Start
 
 For use this plugin you just need to call him whith
 
-::
+.. code-block:: html
 
     $.alert(options);
 
