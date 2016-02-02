@@ -165,14 +165,14 @@
             '                 </button>'+
             '             <% } %>'+
             '             <% if(text_confirm){ %>'+
-            '                <% if(is_delayed) { %>'+
             '                 <button type="button" class="btn btn-primary confirmed">'+
             '                   <div class="row">'+  
+            '                  <% if(is_delayed) { %>'+
             '                     <div class="col-xs-4 timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div>'+
-            '                     <div class="col-xs-7 inline-label" style="margin-top: 13px;"><%= text_confirm %></div>'+
+            '                  <% } %>'+
+            '                     <div class="col-xs-7 inline-label" style="  <% if(is_delayed) { %>margin-top: 13px; <% } else { %>line-height: 48px; min-width: 50px; height: 48px; <% } %>"><%= text_confirm %></div>'+
             '                   </div>'+  
             '                 </button>'+
-            '               <% } %>'+
             '             <% } %>'+
             '        </div>'+
             '      </div>'+

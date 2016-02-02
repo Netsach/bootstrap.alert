@@ -4,7 +4,7 @@
     "Benjamin Herbulot <bherbulot@netsach.fr>"
   ],
   "description": "Customizable bootstrap alert : Replace old javascript alert('msg');",
-  "main": "jquery_alert",
+  "main": "bootstrap.alert.js",
   "moduleType": [
     "amd"
   ],
