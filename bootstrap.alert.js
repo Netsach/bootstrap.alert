@@ -85,13 +85,15 @@
           self.callback_decline();
            $('body').off('click');
         });
-        
+
       }
 
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
+        $(document).trigger('modal_bootstrap_alert_removed');
+
       });
       $('.bootstrap-alert-modal').modal('show');
 
@@ -104,7 +106,7 @@
 
     debug: function(text){
       if(this.settings.debug){
-        console.log(text);      
+        console.log(text);
       }
     },
 
@@ -158,24 +160,24 @@
             '        <div class="modal-footer">'+
             '             <% if(text_decline){ %>'+
             '                 <button type="button" class="btn btn-default declined" data-dismiss="modal">'+
-            '                   <div class="row">'+  
+            '                   <div class="row">'+
             '                    <% if(!text_confirm){ %><div class="col-xs-4  timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>'+
             '                     <div class="col-xs-<% if(!text_confirm){ %>7<% }else{ %>12 <% } %> inline-label" style="line-height: 48px; <% if(text_confirm){ %>min-width: 50px; height: 48px; <% } %>"><%= text_decline %></div>'+
-            '                   </div>'+  
+            '                   </div>'+
             '                 </button>'+
             '             <% } %>'+
             '             <% if(text_confirm){ %>'+
             '                <% if(is_delayed) { %>'+
             '                 <button type="button" class="btn btn-primary confirmed">'+
-            '                   <div class="row">'+  
+            '                   <div class="row">'+
             '                     <div class="col-xs-4 timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div>'+
             '                     <div class="col-xs-7 inline-label" style="margin-top: 13px;"><%= text_confirm %></div>'+
-            '                   </div>'+  
+            '                   </div>'+
             '                 </button>'+
 
       '     <% } else { %>'+
             '                 <button type="button" class="btn btn-primary confirmed"  <% if(!text_decline){ %> style="width: 100%; <% } %>" >'+
-            '                   <div class="row">'+       
+            '                   <div class="row">'+
       '       <div class="col-xs-12  inline-label" style="line-height: 48px; min-width: 50px; height: 48px; "><%= text_confirm %></div>'+
       '               <% } %>'+
             '             <% } %>'+
