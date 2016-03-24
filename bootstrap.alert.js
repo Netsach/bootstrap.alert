@@ -91,8 +91,13 @@
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
+        if(self.confirm_button_clicked){
+          self.settings.callback_confirm();
+        }
+        if(self.decline_button_clicked){
+          self.settings.callback_decline();
+        }
         $('.bootstrap-alert-modal').remove();
-        $(document).trigger('modal_bootstrap_alert_removed');
 
       });
       $('.bootstrap-alert-modal').modal('show');
@@ -111,16 +116,22 @@
     },
 
     callback_confirm : function(){
-      this.settings.callback_confirm();
       if(this.settings.close_after_calback_confirm){
         this.close();
+      }else{
+        this.settings.callback_confirm();
+        this.settings.callback_confirm = function(){};
       }
+      this.confirm_button_clicked = true;
     },
     callback_decline : function(){
-      this.settings.callback_decline();
       if(this.settings.close_after_calback_decline){
         this.close();
+      }else{
+        this.settings.callback_decline();
+        this.settings.callback_confirm = function(){};
       }
+      this.decline_button_clicked = true;
     },
 
     close: function (event) {
