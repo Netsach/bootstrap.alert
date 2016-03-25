@@ -92,10 +92,10 @@
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
-        if(self.confirm_button_clicked && this.settings.close_after_calback_confirm){
+        if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
           self.settings.callback_confirm();
         }
-        if(self.decline_button_clicked && this.settings.close_after_calback_decline){
+        if(self.decline_button_clicked && self.settings.close_after_calback_decline){
           self.settings.callback_decline();
         }
       });
