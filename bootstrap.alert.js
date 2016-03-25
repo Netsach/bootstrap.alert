@@ -91,14 +91,13 @@
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
-        if(self.confirm_button_clicked){
+        $('.bootstrap-alert-modal').remove();
+        if(self.confirm_button_clicked && this.settings.close_after_calback_confirm){
           self.settings.callback_confirm();
         }
-        if(self.decline_button_clicked){
+        if(self.decline_button_clicked && this.settings.close_after_calback_decline){
           self.settings.callback_decline();
         }
-        $('.bootstrap-alert-modal').remove();
-
       });
       $('.bootstrap-alert-modal').modal('show');
 
@@ -120,7 +119,7 @@
         this.close();
       }else{
         this.settings.callback_confirm();
-        this.settings.callback_confirm = function(){};
+        this.callback_called = true;
       }
       this.confirm_button_clicked = true;
     },
@@ -129,7 +128,7 @@
         this.close();
       }else{
         this.settings.callback_decline();
-        this.settings.callback_confirm = function(){};
+        this.callback_called = true;
       }
       this.decline_button_clicked = true;
     },
