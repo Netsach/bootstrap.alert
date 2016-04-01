@@ -98,6 +98,8 @@
         if(self.decline_button_clicked && self.settings.close_after_calback_decline){
           self.settings.callback_decline();
         }
+          self.decline_button_clicked = false;
+          self.confirm_button_clicked = false;
       });
       $('.bootstrap-alert-modal').modal('show');
 
