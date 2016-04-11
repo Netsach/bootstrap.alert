@@ -4,10 +4,7 @@
     "Benjamin Herbulot <bherbulot@netsach.fr>"
   ],
   "description": "Customizable bootstrap alert : Replace old javascript alert('msg');",
-  "main": [
-    "bootstrap.alert.js",
-    "bower_components/timecircles/inc/TimeCircles.ss"
-  ],
+  "main": "bootstrap.alert.js",
   "moduleType": [
     "amd"
   ],
