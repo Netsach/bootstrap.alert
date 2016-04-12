@@ -2,13 +2,10 @@
   $.extend({
 
     settings: null,
+    chain_list: [],
 
     alert: function(options) {
 
-      if($('.bootstrap-alert-modal').length){
-        this.debug('Modal already exist');
-        return;
-      }
 
        this.settings = $.extend({
           title: '',
@@ -26,8 +23,16 @@
           click_outside_for_close: true,
           type: '',       //can be sucess, info, warning, danger or empty
           debug: true,
+          allow_multiple_modal: true,
       }, options);
 
+      if($('.bootstrap-alert-modal').length){
+        this.debug('Modal already exist');
+        if(this.settings.allow_multiple_modal){
+          this.chain_list.push(this.settings);
+        }
+        return;
+      }
 
 
       //You have to give a text to at least on of the 2 buttons confoirm & decline
@@ -100,6 +105,11 @@
         }
           self.decline_button_clicked = false;
           self.confirm_button_clicked = false;
+
+        if(self.chain_list.length > 0){
+          console.log(self.chain_list);
+          self.alert(self.chain_list.shift());
+        }
       });
       $('.bootstrap-alert-modal').modal('show');
 
@@ -108,12 +118,18 @@
 
       $('.bootstrap-alert-modal .declined').click(function(){self.callback_decline();});
       $('.bootstrap-alert-modal .close').click(function(){self.callback_decline();});
+
+      return this;
     },
 
     debug: function(text){
       if(this.settings.debug){
         console.log(text);
       }
+    },
+
+    clean_chain_list: function(){
+      this.chain_list = [];
     },
 
     callback_confirm : function(){
@@ -136,6 +152,7 @@
     },
 
     close: function (event) {
+
 
       $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().destroy();
       $('.bootstrap-alert-modal').modal('hide');
