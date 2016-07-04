@@ -39,8 +39,12 @@
       if(this.settings.text_confirm === undefined || this.settings.text_confirm === "" && this.settings.text_decline === undefined || this.settings.text_decline === ""){
         this.settings.text_confirm = "ok";
       }
+
       var template = _.template(this.get_template());
       $('body').prepend( template(this.settings) );
+      $('.modal-body form').bind('submit', function(event){
+        event.preventDefault();
+      });
 
       var self = this;
       if(this.settings.is_delayed){
@@ -155,6 +159,7 @@
 
 
       $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().destroy();
+      $('.modal-body form').unbind('submit');
       $('.bootstrap-alert-modal').modal('hide');
     },
 
