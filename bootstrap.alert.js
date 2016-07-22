@@ -164,61 +164,53 @@
     },
 
     get_template: function(){
-      return' <div class="modal fade bootstrap-alert-modal <%= extra_class %> " tabindex="-1" role="dialog">'+
-            '    <div class="modal-dialog">'+
-            '      <div class="modal-content">'+
-            '        <div class="modal-header '+
-            '          <% switch(type) { '+
-            '            case "info": '+
-            '              %> alert-info <%'+
-            '              break;'+
-            '            case "success":'+
-            '              %> alert-success <%'+
-            '              break;'+
-            '            case "danger":'+
-            '              %> alert-danger <%'+
-            '              break;'+
-            '            case "warning":'+
-            '              %> alert-warning <%'+
-            '            break;'+
-            '            default:'+
-            '              %> "" <%'+
-            '              break;'+
-            '          } %>">'+
-            '          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-            '          <h4 class="modal-title"><%= title %></h4>'+
-            '        </div>'+
-            '        <div class="modal-body">'+
-            '          <p><%= body %></p>'+
-            '        </div>'+
-            '        <div class="modal-footer">'+
-            '             <% if(text_decline){ %>'+
-            '                 <button type="button" class="btn btn-default declined" data-dismiss="modal">'+
-            '                   <div class="row">'+
-            '                    <% if(!text_confirm){ %><div class="col-xs-4  timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>'+
-            '                     <div class="col-xs-<% if(!text_confirm){ %>7<% }else{ %>12 <% } %> inline-label" style="line-height: 48px; <% if(text_confirm){ %>min-width: 50px; height: 48px; <% } %>"><%= text_decline %></div>'+
-            '                   </div>'+
-            '                 </button>'+
-            '             <% } %>'+
-            '             <% if(text_confirm){ %>'+
-            '                <% if(is_delayed) { %>'+
-            '                 <button type="button" class="btn btn-primary confirmed">'+
-            '                   <div class="row">'+
-            '                     <div class="col-xs-4 timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div>'+
-            '                     <div class="col-xs-7 inline-label" style="margin-top: 13px;"><%= text_confirm %></div>'+
-            '                   </div>'+
-            '                 </button>'+
-
-      '     <% } else { %>'+
-            '                 <button type="button" class="btn btn-primary confirmed"  <% if(!text_decline){ %> style="width: 100%; <% } %>" >'+
-            '                   <div class="row">'+
-      '       <div class="col-xs-12  inline-label" style="line-height: 48px; min-width: 50px; height: 48px; "><%= text_confirm %></div>'+
-      '               <% } %>'+
-            '             <% } %>'+
-            '        </div>'+
-            '      </div>'+
-            '    </div>'+
-            '  </div>';
+      return '<div class="modal fade bootstrap-alert-modal <%= extra_class %>" tabindex="-1" role="dialog">'+
+'      <div class="modal-dialog">'+
+'            <div class="modal-content">'+
+'                  <div class="modal-header <% switch(type) {'+
+'                        case "info":'+
+'                              %> alert-info <%'+
+'                              break;'+
+'                        case "success":'+
+'                              %> alert-success <%'+
+'                              break;'+
+'                        case "danger":'+
+'                              %> alert-danger <%'+
+'                              break;'+
+'                        case "warning":'+
+'                              %> alert-warning <%'+
+'                              break;'+
+'                        default:'+
+'                              %> "" <%'+
+'                              break;'+
+'                        } %>">'+
+'                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
+'                        <h4 class="modal-title"><%= title %></h4>'+
+'                  </div>'+
+'                  <div class="modal-body">'+
+'                        <p><%= body %></p>'+
+'                  </div>'+
+'                  <div class="modal-footer" style="display: flex;justify-content: space-between; ">'+
+'                        <% if(text_decline){ %>'+
+'                              <button type="button" class="btn btn-default declined" data-dismiss="modal" style="flex-grow:1; display: flex; align-items: center; ">'+
+'                                   <% if(!text_confirm && is_delayed){ %><div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>'+
+'                                   <div class="inline-label" style="flex-grow:1; line-height: 48px;"> <%= text_decline %></div>'+
+'                              </button>'+
+'                        <% } %>'+
+'                        <% if(text_confirm){ %>'+
+'                              <% if(is_delayed) { %>'+
+'                                    <button type="button" class="btn btn-primary confirmed" style="flex-grow:1;display: flex; align-items: center; ">'+
+'                                          <div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div>'+
+'                                          <div class="inline-label" style="margin-top: 13px; flex-grow:1;"><%= text_confirm %></div>'+
+'                                    </button>'+
+'                              <% } else { %>'+
+'                                    <button type="button" class="btn btn-primary confirmed"  <% if(!text_decline){ %> style="width: 100%; <% } %>" >'+
+'                                          <div class="inline-label" style="line-height: 48px; height: 48px; flex-grow:1;"><%= text_confirm %></div>'+
+'                              <% } %>'+
+'                         <% } %>'+
+'                  </div>'+
+'            </div>'+
+'      </div>';
     }
 
   });
