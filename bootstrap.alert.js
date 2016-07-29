@@ -3,7 +3,6 @@
 
     settings: null,
     chain_list: [],
-    current_modal: 0,
 
     alert: function(options) {
 
@@ -24,34 +23,41 @@
           type: '',       //can be sucess, info, warning, danger or empty
           debug: true,
           allow_multiple_modal: true,
+          already_add: false,
       }, options);
+
+      console.log('start modale', this.chain_list);
+      if(!this.settings.already_add){
+        this.chain_list.push(this.settings);
+      }
+      console.log('start modale', this.chain_list);
 
       if($('.bootstrap-alert-modal').length){
         this.debug('Modal already exist');
-        if(this.settings.allow_multiple_modal){
-          this.chain_list.push(this.settings);
-        }
+        // if(this.settings.allow_multiple_modal){
+        //   this.chain_list.push(this.settings);
+        // }
         return;
       }
 
 
       //You have to give a text to at least on of the 2 buttons confoirm & decline
-      if(this.settings.text_confirm === undefined || this.settings.text_confirm === "" && this.settings.text_decline === undefined || this.settings.text_decline === ""){
-        this.settings.text_confirm = "ok";
+      if(this.chain_list[0].text_confirm === undefined || this.chain_list[0].text_confirm === "" && this.chain_list[0].text_decline === undefined || this.chain_list[0].text_decline === ""){
+        this.chain_list[0].text_confirm = "ok";
       }
 
       var template = _.template(this.get_template());
-      $('body').prepend( template(this.settings) );
+      $('body').prepend( template(this.chain_list[0]) );
       $('.modal-body form').bind('submit', function(event){
         event.preventDefault();
       });
 
       var self = this;
-      if(this.settings.is_delayed){
-        //this.debug(self.settings.timer_modal);
+      if(this.chain_list[0].is_delayed){
+        //this.debug(self.timer_modal);
         $(".bootstrap-alert-modal .timecircle-timer").TimeCircles({
             //count_past_zero: false,
-            total_duration: parseFloat(self.settings.timer_modal),
+            total_duration: parseFloat(self.chain_list[0].timer_modal),
             time: {
                 "Days": {
                     "show": false
@@ -84,7 +90,7 @@
             }
         });
       }
-      if(!this.settings.click_outside_for_close){
+      if(!this.chain_list[0].click_outside_for_close){
         $('.bootstrap-alert-modal').modal({
             backdrop: 'static',
             keyboard: false
@@ -101,19 +107,20 @@
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
-        if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
-          self.settings.callback_confirm();
+        if(self.confirm_button_clicked && self.chain_list[0].close_after_calback_confirm){
+          self.chain_list[0].callback_confirm();
         }
-        if(self.decline_button_clicked && self.settings.close_after_calback_decline){
-          self.settings.callback_decline();
+        if(self.decline_button_clicked && self.chain_list[0].close_after_calback_decline){
+          self.chain_list[0].callback_decline();
         }
           self.decline_button_clicked = false;
           self.confirm_button_clicked = false;
 
         if(self.chain_list.length > 0){
-          console.log(self.chain_list);
-          this.current_modal += 1;
-          self.alert(self.chain_list.shift());
+          self.chain_list.shift();
+          self.chain_list[0].already_add = true;
+          console.log('cahin lsit after shift', self.chain_list);
+          self.alert(self.chain_list[0]);
         }
       });
       $('.bootstrap-alert-modal').modal('show');
@@ -128,7 +135,7 @@
     },
 
     debug: function(text){
-      if(this.settings.debug){
+      if(this.chain_list[0].debug){
         console.log(text);
       }
     },
@@ -138,19 +145,19 @@
     },
 
     callback_confirm : function(){
-      if(this.settings[this.current_modal].close_after_calback_confirm){
+      if(this.chain_list[0].close_after_calback_confirm){
         this.close();
       }else{
-        this.settings[this.current_modal].callback_confirm();
+        this.chain_list[0].callback_confirm();
         this.callback_called = true;
       }
       this.confirm_button_clicked = true;
     },
     callback_decline : function(){
-      if(this.settings[this.current_modal].close_after_calback_decline){
+      if(this.chain_list[0].close_after_calback_decline){
         this.close();
       }else{
-        this.settings[this.current_modal].callback_decline();
+        this.chain_list[0].callback_decline();
         this.callback_called = true;
       }
       this.decline_button_clicked = true;
