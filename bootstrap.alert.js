@@ -3,11 +3,11 @@
 
     settings: null,
     chain_list: [],
+    current_modal: 0,
 
     alert: function(options) {
 
-
-       this.settings = $.extend({
+      this.settings = $.extend({
           title: '',
           body: '',
           is_delayed: true,
@@ -112,6 +112,7 @@
 
         if(self.chain_list.length > 0){
           console.log(self.chain_list);
+          this.current_modal += 1;
           self.alert(self.chain_list.shift());
         }
       });
@@ -137,19 +138,19 @@
     },
 
     callback_confirm : function(){
-      if(this.settings.close_after_calback_confirm){
+      if(this.settings[this.current_modal].close_after_calback_confirm){
         this.close();
       }else{
-        this.settings.callback_confirm();
+        this.settings[this.current_modal].callback_confirm();
         this.callback_called = true;
       }
       this.confirm_button_clicked = true;
     },
     callback_decline : function(){
-      if(this.settings.close_after_calback_decline){
+      if(this.settings[this.current_modal].close_after_calback_decline){
         this.close();
       }else{
-        this.settings.callback_decline();
+        this.settings[this.current_modal].callback_decline();
         this.callback_called = true;
       }
       this.decline_button_clicked = true;
