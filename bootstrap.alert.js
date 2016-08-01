@@ -6,7 +6,7 @@
 
     alert: function(options) {
       this.decline_button_clicked = false;
-      thisconfirm_button_clicked = false;
+      this.confirm_button_clicked = false;
 
        this.settings = $.extend({
           title: '',
@@ -100,8 +100,9 @@
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
+        this.debug(self.decline_button_clicked, self.settings.close_after_calback_decline);
         if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
-          self.debug('callback_confirm called');
+          self.debug('callback_confirm called after close');
           self.settings.callback_confirm();
         }
         if(self.decline_button_clicked && self.settings.close_after_calback_decline){
@@ -151,17 +152,19 @@
       }else{
         this.debug('callback_confirm called');
         this.settings.callback_confirm();
-        this.confirm_button_clicked = true;
+        this.confirm_button_clicked = false;
       }
     },
     callback_decline : function(){
       if(this.settings.close_after_calback_decline){
+        this.debug('callback_decline call modal close');
+        this.decline_button_clicked = true;
         this.close();
       }else{
         this.debug('callback_decline called');
         this.settings.callback_decline();
+        this.decline_button_clicked = false;
       }
-      this.decline_button_clicked = true;
     },
 
     close: function (event) {
