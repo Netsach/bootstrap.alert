@@ -21,7 +21,7 @@
           timer_modal: 50,
           click_outside_for_close: true,
           type: '',       //can be sucess, info, warning, danger or empty
-          debug: true,
+          debug: false,
           allow_multiple_modal: true,
       }, options);
 
@@ -98,12 +98,14 @@
 
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
-        //self.debug('close modal');
+        self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
         if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
+          self.debug('callback_confirm called');
           self.settings.callback_confirm();
         }
         if(self.decline_button_clicked && self.settings.close_after_calback_decline){
+          self.debug('callback_decline called');
           self.settings.callback_decline();
         }
         self.decline_button_clicked = false;
@@ -118,11 +120,14 @@
 
 
       $('.bootstrap-alert-modal .confirmed').one( "click", function(){
+        self.debug('button .confirmed clicked');
         self.callback_confirm();});
 
       $('.bootstrap-alert-modal .declined').one( "click", function(){
+        self.debug('button .declined clicked');
         self.callback_decline();});
       $('.bootstrap-alert-modal .close').one( "click", function(){
+        self.debug('button .close clicked');
         self.callback_decline();});
 
       return this;
@@ -130,6 +135,7 @@
 
     debug: function(text){
       if(this.settings.debug){
+        console.log(text);
       }
     },
 
@@ -143,6 +149,7 @@
         this.close();
 
       }else{
+        this.debug('callback_confirm called');
         this.settings.callback_confirm();
         this.confirm_button_clicked = true;
       }
@@ -151,6 +158,7 @@
       if(this.settings.close_after_calback_decline){
         this.close();
       }else{
+        this.debug('callback_decline called');
         this.settings.callback_decline();
       }
       this.decline_button_clicked = true;
