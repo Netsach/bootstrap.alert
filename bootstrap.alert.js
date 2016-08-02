@@ -7,6 +7,7 @@
     alert: function(options) {
       this.decline_button_clicked = false;
       this.confirm_button_clicked = false;
+      var self = this;
 
        this.settings = $.extend({
           title: '',
@@ -16,6 +17,8 @@
           close_after_calback_decline: true,
           text_confirm: 'ok',
           text_decline: null,
+          callback_confirm: function(){self.debug('accepted');},
+          callback_decline: function(){self.debug('declined');},
           extra_class: '',
           loading: false,
           timer_modal: 50,
@@ -45,7 +48,6 @@
         event.preventDefault();
       });
 
-      var self = this;
       if(this.settings.is_delayed){
         //this.debug(self.settings.timer_modal);
         $(".bootstrap-alert-modal .timecircle-timer").TimeCircles({
@@ -100,7 +102,6 @@
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
-        this.debug(self.decline_button_clicked, self.settings.close_after_calback_decline);
         if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
           self.debug('callback_confirm called after close');
           self.settings.callback_confirm();
