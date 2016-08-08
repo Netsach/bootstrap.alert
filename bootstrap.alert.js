@@ -121,14 +121,14 @@
       $('.bootstrap-alert-modal').modal('show');
 
 
-      $('.bootstrap-alert-modal .confirmed').one( "click", function(){
+      $('.bootstrap-alert-modal .confirmed').on( "click", function(){
         self.debug('button .confirmed clicked');
         self.callback_confirm();});
 
-      $('.bootstrap-alert-modal .declined').one( "click", function(){
+      $('.bootstrap-alert-modal .declined').on( "click", function(){
         self.debug('button .declined clicked');
         self.callback_decline();});
-      $('.bootstrap-alert-modal .close').one( "click", function(){
+      $('.bootstrap-alert-modal .close').on( "click", function(){
         self.debug('button .close clicked');
         self.callback_decline();});
 
