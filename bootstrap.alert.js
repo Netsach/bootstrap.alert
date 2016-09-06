@@ -213,8 +213,8 @@
 '                        <% if(text_confirm){ %>'+
 '                              <% if(is_delayed) { %>'+
 '                                    <button type="button" class="btn btn-primary confirmed" style="flex-grow:1;display: flex; align-items: center; ">'+
-'                                          <div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div>'+
-'                                          <div class="inline-label" style="margin-top: 13px; flex-grow:1;"><%= text_confirm %></div>'+
+'                                          <div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px;"></div>'+ //virer les margin car causaient des soucis d'alignement vertical ( margin-top: 7px;)
+'                                          <div class="inline-label" style="flex-grow:1;"><%= text_confirm %></div>'+ // pareil (margin-top: 13px;)
 '                                    </button>'+
 '                              <% } else { %>'+
 '                                    <button type="button" class="btn btn-primary confirmed"  <% if(!text_decline){ %> style="width: 100%; <% } %>" >'+
