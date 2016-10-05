@@ -229,7 +229,6 @@
 
   confirmable_alert: function(options){
       var self = this;
-      console.log('confirmable_alert');
 
       this.settings = $.extend({
         title: '',
@@ -239,8 +238,8 @@
         is_delayed: false,
         close_after_calback_confirm: false,
         close_after_calback_decline: false,
-        callback_confirm: function(){self.debug('accepted');},
-        callback_decline: function(){self.debug('declined');},
+        callback_confirm: function(){},
+        callback_decline: function(){},
         extra_class: '',
         loading: false,
         timer_modal: 50,
@@ -256,14 +255,12 @@
 
       $('.bootstrap-alert-modal .confirmed').on( "click", function(){
         self.debug('button .confirmed clicked');
-        options.callback_confirm();
-
-        if(options.event.currentTarget.form){
-            options.event.currentTarget.form.submit();
-        }else{
-          window.location.href = options.event.currentTarget.href;
+        self.settings.callback_confirm();
+        if(self.settings.event.currentTarget.form){
+            self.settings.event.currentTarget.form.submit();
+        }else if (self.settings.event.currentTarget.href){
+          window.location.href = self.settings.event.currentTarget.href;
         }
-
         self.close();
       });
 
@@ -284,8 +281,6 @@
       $(this).click(function(event){
         a = event;
         event.preventDefault();
-        console.log(Object.getOwnPropertyNames(event));
-        console.log(event.currentTarget.event);
         options.event = event;
         $.confirmable_alert(options);
       });

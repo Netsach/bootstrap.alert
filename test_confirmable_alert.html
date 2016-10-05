@@ -21,6 +21,9 @@
     </form>
 
     <a href="http://www.google.com" id="link-test">Test</a>
+
+    <button class="btn-callback">click with callback</button>
+
     <script type="text/javascript" src="bower_components/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script type="text/javascript" src="bower_components/timecircles/inc/TimeCircles.js"></script>
@@ -29,6 +32,7 @@
     <script type="text/javascript">
         $(document).ready(function(){
             $("#send-form").init_confirmable_alert({title:'title', body:'text'});
+            $(".btn-callback").init_confirmable_alert({title:'title', body:'text', callback_confirm: function(){console.log('coucou');}});
             $("#link-test").init_confirmable_alert({title:'title', body:'text'});
         });
 
