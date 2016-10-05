@@ -256,6 +256,7 @@
 
       $('.bootstrap-alert-modal .confirmed').on( "click", function(){
         self.debug('button .confirmed clicked');
+        options.callback_confirm();
 
         if(options.event.currentTarget.form){
             options.event.currentTarget.form.submit();
