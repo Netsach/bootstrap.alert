@@ -1,6 +1,6 @@
 {
   "name": "bootstrap-alert",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "authors": [
     "Benjamin Herbulot <bherbulot@netsach.fr>"
   ],
@@ -19,7 +19,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~2.1.4",
+    "jquery": null,
     "bootstrap": "~3.3.6",
     "timecircles": "~1.5.3",
     "underscore": "~1.8.3"

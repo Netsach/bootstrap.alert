@@ -224,7 +224,70 @@
 '                  </div>'+
 '            </div>'+
 '      </div>';
-    }
+    },
+
+
+  confirmable_alert: function(options){
+      var self = this;
+      console.log('confirmable_alert');
+
+      this.settings = $.extend({
+        title: '',
+        body: '',
+        text_confirm: 'ok',
+        text_decline: 'no',
+        is_delayed: false,
+        close_after_calback_confirm: false,
+        close_after_calback_decline: false,
+        callback_confirm: function(){self.debug('accepted');},
+        callback_decline: function(){self.debug('declined');},
+        extra_class: '',
+        loading: false,
+        timer_modal: 50,
+        click_outside_for_close: false,
+        type: '',       //can be sucess, info, warning, danger or empty
+        debug: false,
+        allow_multiple_modal: false,
+      }, options);
+
+      var template = _.template(this.get_template());
+      $('body').prepend(template(this.settings));
+      $('.bootstrap-alert-modal').modal('show');
+
+      $('.bootstrap-alert-modal .confirmed').on( "click", function(){
+        self.debug('button .confirmed clicked');
+
+        if(options.event.currentTarget.form){
+            options.event.currentTarget.form.submit();
+        }else{
+          window.location.href = options.event.currentTarget.href;
+        }
+
+        self.close();
+      });
+
+      $('.bootstrap-alert-modal .declined, bootstrap-alert-modal .close').on( "click", function(){
+          self.debug('button .declined clicked');
+          self.close();
+      });
+
+      $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
+        self.debug('close modal');
+        $('.bootstrap-alert-modal').remove();
+      });
+  },
 
   });
+
+  $.fn.init_confirmable_alert = function(options){
+      $(this).click(function(event){
+        a = event;
+        event.preventDefault();
+        console.log(Object.getOwnPropertyNames(event));
+        console.log(event.currentTarget.event);
+        options.event = event;
+        $.confirmable_alert(options);
+      });
+  };
 })(jQuery);
+var a;
