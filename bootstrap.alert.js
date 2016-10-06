@@ -232,7 +232,7 @@
 
       this.settings = $.extend({
         title: '',
-        body: 'Are you sure? This operation needs informations.',
+        body: 'Are you sure? This operation needs confirmations.',
         text_confirm: 'Proceed',
         text_decline: 'Cancel',
         is_delayed: false,
