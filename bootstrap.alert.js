@@ -177,53 +177,53 @@
     },
 
     get_template: function(){
-      return '<div class="modal fade bootstrap-alert-modal <%= extra_class %>" tabindex="-1" role="dialog">'+
-'      <div class="modal-dialog">'+
-'            <div class="modal-content">'+
-'                  <div class="modal-header <% switch(type) {'+
-'                        case "info":'+
-'                              %> alert-info <%'+
-'                              break;'+
-'                        case "success":'+
-'                              %> alert-success <%'+
-'                              break;'+
-'                        case "danger":'+
-'                              %> alert-danger <%'+
-'                              break;'+
-'                        case "warning":'+
-'                              %> alert-warning <%'+
-'                              break;'+
-'                        default:'+
-'                              %> "" <%'+
-'                              break;'+
-'                        } %>">'+
-'                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-'                        <h4 class="modal-title"><%= title %></h4>'+
-'                  </div>'+
-'                  <div class="modal-body">'+
-'                        <p><%= body %></p>'+
-'                  </div>'+
-'                  <div class="modal-footer" style="display: flex;justify-content: space-between; ">'+
-'                        <% if(text_decline){ %>'+
-'                              <button type="button" class="btn btn-default declined" data-dismiss="modal" style="flex-grow:1; display: flex; align-items: center; ">'+
-'                                   <% if(!text_confirm && is_delayed){ %><div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>'+
-'                                   <div class="inline-label" style="flex-grow:1; line-height: 48px;"> <%= text_decline %></div>'+
-'                              </button>'+
-'                        <% } %>'+
-'                        <% if(text_confirm){ %>'+
-'                              <% if(is_delayed) { %>'+
-'                                    <button type="button" class="btn btn-primary confirmed" style="flex-grow:1;display: flex; align-items: center; ">'+
-'                                          <div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px;"></div>'+ //virer les margin car causaient des soucis d'alignement vertical ( margin-top: 7px;)
-'                                          <div class="inline-label" style="flex-grow:1;"><%= text_confirm %></div>'+ // pareil (margin-top: 13px;)
-'                                    </button>'+
-'                              <% } else { %>'+
-'                                    <button type="button" class="btn btn-primary confirmed"  <% if(!text_decline){ %> style="width: 100%; <% } %>" >'+
-'                                          <div class="inline-label" style="line-height: 48px; height: 48px; flex-grow:1;"><%= text_confirm %></div>'+
-'                              <% } %>'+
-'                         <% } %>'+
-'                  </div>'+
-'            </div>'+
-'      </div>';
+      return '<div class="modal fade bootstrap-alert-modal <%= extra_class %>" tabindex="-1" role="dialog">\
+      <div class="modal-dialog">\
+            <div class="modal-content">\
+                  <div class="modal-header <% switch(type) {\
+                        case "info":\
+                              %> alert-info <%\
+                              break;\
+                        case "success":\
+                              %> alert-success <%\
+                              break;\
+                        case "danger":\
+                              %> alert-danger <%\
+                              break;\
+                        case "warning":\
+                              %> alert-warning <%\
+                              break;\
+                        default:\
+                              %> "" <%\
+                              break;\
+                        } %>">\
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                        <h4 class="modal-title"><%= title %></h4>\
+                  </div>\
+                  <div class="modal-body">\
+                        <p><%= body %></p>\
+                  </div>\
+                  <div class="modal-footer" style="display: flex;justify-content: space-between; ">\
+                        <% if(text_decline){ %>\
+                              <button type="button" class="btn btn-default declined" data-dismiss="modal" style="<% if(text_confirm){ %> flex-basis: 50%; <% }else{ %> flex-basis: 100%; <% }%> display: flex; align-items: center; ">\
+                                   <% if(!text_confirm && is_delayed){ %><div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>\
+                                   <div class="inline-label" style="flex-grow:1; line-height: 48px;"> <%= text_decline %></div>\
+                              </button>\
+                        <% } %>\
+                        <% if(text_confirm){ %>\
+                              <% if(is_delayed) { %>\
+                                    <button type="button" class="btn btn-primary confirmed" style="<% if(text_decline){ %> flex-basis: 50%; <% }else{ %> flex-basis: 100%; <% }%> flex; align-items: center; ">\
+                                          <div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px;"></div>\
+                                          <div class="inline-label" style="flex-grow:1;"><%= text_confirm %></div>\
+                                    </button>\
+                              <% } else { %>\
+                                    <button type="button" class="btn btn-primary confirmed" style="<% if(text_decline){ %> flex-basis: 50%; <% }else{ %> flex-basis: 100%; <% }%>"  >\
+                                          <div class="inline-label" style="line-height: 48px; height: 48px; flex-grow:1;"><%= text_confirm %></div>\
+                              <% } %>\
+                         <% } %>\
+                  </div>\
+            </div>\
+      </div>';
     },
 
 
@@ -232,9 +232,9 @@
 
       this.settings = $.extend({
         title: '',
-        body: '',
-        text_confirm: 'ok',
-        text_decline: 'no',
+        body: 'Are you sure? This operation needs informations.',
+        text_confirm: 'Proceed',
+        text_decline: 'Cancel',
         is_delayed: false,
         close_after_calback_confirm: false,
         close_after_calback_decline: false,
@@ -248,6 +248,14 @@
         debug: false,
         allow_multiple_modal: false,
       }, options);
+
+      if(this.settings.title === ''){
+        if(self.settings.event.currentTarget.form){
+          this.settings.title = "Submit form";
+        }else{
+            this.settings.title = $(self.settings.event.currentTarget).text();
+        }
+      }
 
       var template = _.template(this.get_template());
       $('body').prepend(template(this.settings));
@@ -278,6 +286,7 @@
   });
 
   $.fn.init_confirmable_alert = function(options){
+    options = options || {};
       $(this).click(function(event){
         a = event;
         event.preventDefault();

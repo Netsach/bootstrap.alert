@@ -31,9 +31,9 @@
     <script type="text/javascript" src="bootstrap.alert.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
-            $("#send-form").init_confirmable_alert({title:'title', body:'text'});
-            $(".btn-callback").init_confirmable_alert({title:'title', body:'text', callback_confirm: function(){console.log('coucou');}});
-            $("#link-test").init_confirmable_alert({title:'title', body:'text'});
+            $("#send-form").init_confirmable_alert();
+            $(".btn-callback").init_confirmable_alert({ callback_confirm: function(){console.log('coucou');}});
+            $("#link-test").init_confirmable_alert();
         });
 
         // $('#send-form').on('click', function(event, options) {
