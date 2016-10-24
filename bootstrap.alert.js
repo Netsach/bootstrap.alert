@@ -85,18 +85,18 @@
             }
         });
       }
-      // if(!this.settings.click_outside_for_close){
-      //   $('.bootstrap-alert-modal').modal({
-      //       backdrop: 'static',
-      //       keyboard: false
-      //   });
-      // }else{
-      //   $('body').on('click', function(e) {
-      //     self.callback_decline();
-      //      $('body').off('click');
-      //   });
+      if(!this.settings.click_outside_for_close){
+        $('.bootstrap-alert-modal').modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+      }else{
+        $('body').on('click', function(e) {
+          self.callback_decline();
+           $('body').off('click');
+        });
 
-      // }
+      }
 
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
