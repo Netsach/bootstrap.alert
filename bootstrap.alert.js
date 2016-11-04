@@ -119,12 +119,12 @@
           self.debug('callback_decline called');
           self.settings.callback_decline();
         }
-        self.decline_button_clicked = false;
-        self.confirm_button_clicked = false;
+
 
         if(self.chain_list.length > 0){
           self.alert(self.chain_list.shift());
         }
+        self.reset_data();
       });
 
       $('.bootstrap-alert-modal').modal('show');
@@ -145,6 +145,13 @@
       });
 
       return this;
+    },
+
+    reset_data: function(){
+      this.callback_confirm_called = false;
+      this.callback_decline_called = false;
+      this.decline_button_clicked = false;
+      this.confirm_button_clicked = false;
     },
 
     debug: function(text){
@@ -170,6 +177,7 @@
         }
         this.callback_confirm_called = true;
         this.callback_decline_called = true;
+        console.log(this.settings);
       }
     },
 
