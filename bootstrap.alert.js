@@ -4,6 +4,9 @@
     settings: null,
     chain_list: [],
 
+    callback_decline_called: false,
+    callback_confirm_called: false,
+
     alert: function(options) {
       this.decline_button_clicked = false;
       this.confirm_button_clicked = false;
@@ -26,6 +29,7 @@
           type: '',       //can be sucess, info, warning, danger or empty
           debug: false,
           allow_multiple_modal: true,
+          no_close_btn: false,
       }, options);
 
       if($('.bootstrap-alert-modal').length){
@@ -81,10 +85,12 @@
         $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().addListener (function(unit, value, total){
             if(total <= -1){
                 $(this).TimeCircles().stop();
+                self.debug('timer end, i close');
                 self.close();
             }
         });
       }
+
       if(!this.settings.click_outside_for_close){
         $('.bootstrap-alert-modal').modal({
             backdrop: 'static',
@@ -99,13 +105,16 @@
       }
 
 
-      $('.bootstrap-alert-modal').on("hidden.bs.modal", function(){
+      $('.bootstrap-alert-modal').on("hidden.bs.modal", function(e){
+        console.log(e);
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
+
         if(self.confirm_button_clicked && self.settings.close_after_calback_confirm){
           self.debug('callback_confirm called after close');
           self.settings.callback_confirm();
         }
+
         if(self.decline_button_clicked && self.settings.close_after_calback_decline){
           self.debug('callback_decline called');
           self.settings.callback_decline();
@@ -120,17 +129,20 @@
 
       $('.bootstrap-alert-modal').modal('show');
 
-
       $('.bootstrap-alert-modal .confirmed').on( "click", function(){
         self.debug('button .confirmed clicked');
-        self.callback_confirm();});
+        self.callback_confirm();
+      });
 
       $('.bootstrap-alert-modal .declined').on( "click", function(){
         self.debug('button .declined clicked');
-        self.callback_decline();});
+        self.callback_decline();
+      });
+
       $('.bootstrap-alert-modal .close').on( "click", function(){
         self.debug('button .close clicked');
-        self.callback_decline();});
+        self.callback_decline();
+      });
 
       return this;
     },
@@ -146,31 +158,39 @@
     },
 
     callback_confirm : function(){
-      if(this.settings.close_after_calback_confirm){
-        this.confirm_button_clicked = true;
-        this.close();
+      if(!this.callback_confirm_called){
+        if(this.settings.close_after_calback_confirm){
+          this.confirm_button_clicked = true;
+          this.close();
 
-      }else{
-        this.debug('callback_confirm called');
-        this.settings.callback_confirm();
-        this.confirm_button_clicked = false;
+        }else{
+          this.debug('callback_confirm called');
+          this.settings.callback_confirm();
+          this.confirm_button_clicked = false;
+        }
+        this.callback_confirm_called = true;
+        this.callback_decline_called = true;
       }
     },
+
     callback_decline : function(){
-      if(this.settings.close_after_calback_decline){
-        this.debug('callback_decline call modal close');
-        this.decline_button_clicked = true;
-        this.close();
-      }else{
-        this.debug('callback_decline called');
-        this.settings.callback_decline();
-        this.decline_button_clicked = false;
+      if(!this.callback_decline_called){
+        if(this.settings.close_after_calback_decline){
+          this.decline_button_clicked = true;
+          this.close();
+        }else{
+          this.settings.callback_decline();
+          this.decline_button_clicked = false;
+          console.log("don't close after callback_decline_called");
+        }
+        this.callback_decline_called = true;
+        this.callback_confirm_called = true;
       }
     },
 
     close: function (event) {
 
-
+      console.log("close function called");
       $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().destroy();
       $('.modal-body form').unbind('submit');
       $('.bootstrap-alert-modal').modal('hide');
@@ -197,7 +217,9 @@
                               %> "" <%\
                               break;\
                         } %>">\
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                        <% if(!no_close_btn) { %>\
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>\
+                        <% } %>\
                         <h4 class="modal-title"><%= title %></h4>\
                   </div>\
                   <div class="modal-body">\
@@ -205,7 +227,7 @@
                   </div>\
                   <div class="modal-footer" style="display: flex;justify-content: space-between; ">\
                         <% if(text_decline){ %>\
-                              <button type="button" class="btn btn-default declined" data-dismiss="modal" style="<% if(text_confirm){ %> flex-basis: 50%; <% }else{ %> flex-basis: 100%; <% }%> display: flex; align-items: center; ">\
+                              <button type="button" class="btn btn-default declined" style="<% if(text_confirm){ %> flex-basis: 50%; <% }else{ %> flex-basis: 100%; <% }%> display: flex; align-items: center; ">\
                                    <% if(!text_confirm && is_delayed){ %><div class="timecircle-timer" data-timer="<%= timer_modal %>" style="height: 40px; margin-top: 7px;"></div><% } %>\
                                    <div class="inline-label" style="flex-grow:1; line-height: 48px;"> <%= text_decline %></div>\
                               </button>\
@@ -288,11 +310,9 @@
   $.fn.init_confirmable_alert = function(options){
     options = options || {};
       $(this).click(function(event){
-        a = event;
         event.preventDefault();
         options.event = event;
         $.confirmable_alert(options);
       });
   };
 })(jQuery);
-var a;
