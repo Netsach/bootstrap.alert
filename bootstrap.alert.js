@@ -182,7 +182,8 @@
         this.close();
 
       }else{
-        this.debug('callback_confirm called');
+        this.callback_decline_called = true;
+        this.callback_confirm_called = true;
         this.settings.callback_confirm();
         this.confirm_button_clicked = false;
       }
@@ -195,6 +196,8 @@
         this.decline_button_clicked = true;
         this.close();
       }else{
+        this.callback_decline_called = true;
+        this.callback_confirm_called = true;
         this.settings.callback_decline();
         this.decline_button_clicked = false;
       }
