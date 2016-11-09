@@ -18,6 +18,7 @@
           is_delayed: true,
           close_after_calback_confirm: true,
           close_after_calback_decline: true,
+          enable_multiple_callback: true,
           text_confirm: 'ok',
           text_decline: null,
           callback_confirm: function(){self.debug('accepted');},
@@ -25,7 +26,7 @@
           extra_class: '',
           loading: false,
           timer_modal: 50,
-          click_outside_for_close: true,
+          click_outside_for_close: false,
           type: '',       //can be sucess, info, warning, danger or empty
           debug: false,
           allow_multiple_modal: true,
@@ -106,7 +107,6 @@
 
 
       $('.bootstrap-alert-modal').on("hidden.bs.modal", function(e){
-        console.log(e);
         self.debug('close modal');
         $('.bootstrap-alert-modal').remove();
 
@@ -131,12 +131,24 @@
 
       $('.bootstrap-alert-modal .confirmed').on( "click", function(){
         self.debug('button .confirmed clicked');
-        self.callback_confirm();
+        if(self.settings.enable_multiple_callback){
+          self.callback_confirm();
+        }else{
+          if(!self.callback_decline_called && !self.callback_confirm_called){
+            self.callback_confirm();
+          }
+        }
       });
 
       $('.bootstrap-alert-modal .declined').on( "click", function(){
         self.debug('button .declined clicked');
-        self.callback_decline();
+        if(self.settings.enable_multiple_callback){
+          self.callback_decline();
+        }else{
+          if(!self.callback_decline_called && !self.callback_confirm_called){
+            self.callback_decline();
+          }
+        }
       });
 
       $('.bootstrap-alert-modal .close').on( "click", function(){
@@ -165,40 +177,33 @@
     },
 
     callback_confirm : function(){
-      if(!this.callback_confirm_called){
-        if(this.settings.close_after_calback_confirm){
-          this.confirm_button_clicked = true;
-          this.close();
+      if(this.settings.close_after_calback_confirm){
+        this.confirm_button_clicked = true;
+        this.close();
 
-        }else{
-          this.debug('callback_confirm called');
-          this.settings.callback_confirm();
-          this.confirm_button_clicked = false;
-        }
-        this.callback_confirm_called = true;
-        this.callback_decline_called = true;
-        console.log(this.settings);
+      }else{
+        this.debug('callback_confirm called');
+        this.settings.callback_confirm();
+        this.confirm_button_clicked = false;
       }
+      this.callback_confirm_called = true;
+      this.callback_decline_called = true;
     },
 
     callback_decline : function(){
-      if(!this.callback_decline_called){
-        if(this.settings.close_after_calback_decline){
-          this.decline_button_clicked = true;
-          this.close();
-        }else{
-          this.settings.callback_decline();
-          this.decline_button_clicked = false;
-          console.log("don't close after callback_decline_called");
-        }
-        this.callback_decline_called = true;
-        this.callback_confirm_called = true;
+      if(this.settings.close_after_calback_decline){
+        this.decline_button_clicked = true;
+        this.close();
+      }else{
+        this.settings.callback_decline();
+        this.decline_button_clicked = false;
       }
+      this.callback_decline_called = true;
+      this.callback_confirm_called = true;
     },
 
     close: function (event) {
 
-      console.log("close function called");
       $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().destroy();
       $('.modal-body form').unbind('submit');
       $('.bootstrap-alert-modal').modal('hide');
