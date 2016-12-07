@@ -282,9 +282,11 @@
         loading: false,
         timer_modal: 50,
         click_outside_for_close: false,
+        enable_multiple_callback: true,
         type: '',       //can be sucess, info, warning, danger or empty
         debug: false,
         allow_multiple_modal: false,
+        no_close_btn: false,
       }, options);
 
       if(this.settings.title === ''){
