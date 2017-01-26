@@ -200,7 +200,7 @@
         spinner_color = this.settings.confirm_spinner_color;
       }
 
-      $(button_class).append('<style type="text/css">.spinner{border-color:'+spinner_color+';border-bottom-color: transparent;}</style><div class="spinner"></div>');
+      $(button_class).append('<div class="spinner" style="border-color:'+spinner_color+';border-bottom-color: transparent;"></div>');
     },
 
     callback_confirm : function(){
