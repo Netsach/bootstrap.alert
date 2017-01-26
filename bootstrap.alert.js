@@ -215,7 +215,7 @@
       }
 
       // is the callback does this job?
-      if(callback_confirm_validated){
+      if(callback_confirm_validated !== false){
         this.add_loader(".confirmed");
         this.callback_confirm_called = true;
         this.callback_decline_called = true;
