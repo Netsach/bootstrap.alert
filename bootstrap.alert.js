@@ -18,6 +18,8 @@
           is_delayed: true,
           close_after_calback_confirm: true,
           close_after_calback_decline: true,
+          decline_spinner_color: "#fff",
+          confirm_spinner_color: "#fff",
           enable_multiple_callback: true,
           text_confirm: 'ok',
           text_decline: null,
@@ -191,7 +193,14 @@
     },
 
     add_loader: function(button_class){
-      $(button_class).append('<div class="spinner"></div>');
+      var spinner_color;
+      if(button_class === ".declined"){
+        spinner_color = this.settings.decline_spinner_color;
+      }else{
+        spinner_color = this.settings.confirm_spinner_color;
+      }
+
+      $(button_class).append('<style type="text/css">.spinner{border-color:'+spinner_color+';border-bottom-color: transparent;}</style><div class="spinner"></div>');
     },
 
     callback_confirm : function(){
