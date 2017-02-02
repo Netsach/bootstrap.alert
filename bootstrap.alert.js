@@ -37,8 +37,7 @@
 
       if($('.bootstrap-alert-modal').length){
         this.debug('Modal already exist');
-        if(this.settings.allow_multiple_modal){
-          this.chain_list.push(this.settings);
+        if(this.settings.allow_multiple_modal){this.chain_list.push(this.settings);
         }
         return;
       }
@@ -140,7 +139,7 @@
     activate_timer: function() {
         $(".bootstrap-alert-modal .timecircle-timer").TimeCircles({
             //count_past_zero: false,
-            total_duration: parseFloat(self.settings.timer_modal),
+            total_duration: parseFloat(this.settings.timer_modal),
             time: {
                 "Days": {
                     "show": false
@@ -163,7 +162,7 @@
         //rebuild the timecircle at the end of the bootstrap modal pop
         $('.bootstrap-alert-modal').on("shown.bs.modal", function() {
             $(".timecircle-timer").TimeCircles().rebuild();
-            self.debug('TimeCircles rebuilded');
+            this.debug('TimeCircles rebuilded');
         });
 
         $('.bootstrap-alert-modal .timecircle-timer').TimeCircles().addListener(function(unit, value, total) {
@@ -199,8 +198,8 @@
       }else{
         spinner_color = this.settings.confirm_spinner_color;
       }
-
-      $(button_class).append('<div class="spinner" style="border-color:'+spinner_color+';border-bottom-color: transparent;"></div>');
+      $(".ba-spinner").remove();
+      $(button_class).append('<div class="spinner ba-spinner" style="border-color:'+spinner_color+';border-bottom-color: transparent;"></div>');
     },
 
     callback_confirm : function(){
