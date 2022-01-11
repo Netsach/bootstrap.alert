@@ -13,7 +13,36 @@
 			margin-bottom: 15px !important;
 		}
 
-		.xtra .modal-header{
+.xtra .modal-footer .btn-default{
+  vertical-align: middle;
+  color: #000;
+  // width: 48%;
+  width: 50%;
+  text-transform: lowercase;
+  float: left;
+  border-radius: 0;
+  margin: 0;
+  padding-left: 0;
+  margin-bottom: 2px;
+}
+
+.xtra .modal-footer .btn-primary{
+  background-color: @primary-color;
+  vertical-align: middle;
+  color: #fff;
+  //width: 48%;
+  width: 50%;
+  margin: 0;
+  padding-left: 0;
+  text-transform: lowercase;
+  float: left;
+  border-radius: 0;
+  margin-left: 0;
+  margin-bottom: 2px;
+}
+
+
+/*		.xtra .modal-header{
 			height: 15%;
 			background-color: #e4e4e4;
 			display: table;
@@ -57,7 +86,7 @@
 		    float: left;
 		    border-radius: 0;
 		    margin-left: 0;
-		}
+		}*/
 	</style>
 </head>
 <body>
@@ -159,7 +188,7 @@
 					  	</div>
 				  	</div>
 				</div>
-		  	</div>		  	
+		  	</div>
 
 
 			<label>Modal type</label>
@@ -219,6 +248,24 @@
 		};
 
 		$(function() {
+
+			// $.alert({
+			// 	title: 'fdsf',
+			// 	body: 'ddddddddd',
+			// 	is_delayed: false,
+			// 	close_after_calback_confirm: false,
+			// 	close_after_calback_decline: false,
+			// 	text_confirm: 'ok',
+			// 	text_decline: "null",
+			// 	extra_class: '',
+			// 	loading: false,
+			// 	timer_modal: 50,
+			// 	click_outside_for_close: false,
+			// 	type: '',       //can be sucess, info, warning, danger or empty
+			// 	debug: true,
+			// 	no_close_btn: true,
+			// });
+
 		    $('#modal-form').submit(function(e) {
 		    	e.preventDefault();
 		        //$('#result').html(JSON.stringify($('#modal-form').serializeObject()));
